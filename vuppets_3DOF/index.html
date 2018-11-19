@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en_US" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8">
+    <title>Vuppets - Oculus Go and Gear VR headsets</title>
+    <meta name="description" content="Puppets in Virtual Reality! Compatible with Oculus Go and Gear VR.">
+    <meta property="og:title" content="Vuppets">
+    <meta property="og:description" content="Puppets in Virtual Reality! Compatible with Oculus Go and Gear VR.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.jorgefuentes.net/projects/vuppets/">
+    <meta property="og:image" content="https://www.jorgefuentes.net/projects/vuppets/vuppets_screenshot.jpg">
+
+    <script src="components/aframe-master.min.js"></script>
+    <script src="components/correct-gamma.js"></script>
+    <script src="components/aframe-extras.min.js"></script>
+    <script src="components/rotate-mouth.js"></script>
+    <script src="components/swap-puppet.js"></script>
+    <script src="components/howler.min.js"></script>
+
+    <script>
+      var bgAudio = new Howl({
+        src: ['models/bgsound.mp3'],
+        autoplay: true,
+        loop: true,
+        volume: 1
+      });
+      bgAudio.play();
+    </script>
+
+  </head>
+  <body>
+    <a-scene background="color: #CCC" correct-gamma>
+      <a-assets timeout="30000">
+        <a-asset-item id="egghead" src="models/egghead.gltf"></a-asset-item>
+        <a-asset-item id="stickman" src="models/stickman.gltf"></a-asset-item>
+        <a-asset-item id="street" src="models/street.gltf"></a-asset-item>
+        <a-asset-item id="instructions" src="models/instructions.gltf"></a-asset-item>
+        <a-asset-item id="credits" src="models/credits.gltf"></a-asset-item>
+        <img id="sky" src="models/skymap.jpg">
+      </a-assets>
+
+      <a-entity
+        position="10 4 2"
+        light="type: directional; color: #fee6c0; intensity: 0.8;"
+      >
+      </a-entity>
+
+      <a-entity
+        light="type: ambient; color: #fee6c0; intensity: 0.5;"
+      >
+      </a-entity>
+
+      <a-sky src="#sky"></a-sky>
+  
+      <a-entity
+        gltf-model="#street"
+        position="0 0 -1"
+        rotation="0 -45 0"
+        animation-mixer
+      >
+      </a-entity>
+
+      <!-- CONTROLLERS -->
+
+      <a-entity
+        id="controller"
+        gearvr-controls="model: false; armModel: false;"
+        oculus-go-controls="model: false; armModel: false;"
+        position="0 0.5 -1.75"
+        swap-puppet="target: #puppet"
+      >
+        <a-entity
+          id="puppet"
+          gltf-model="#stickman"
+          rotation="-30 0 0"
+          scale="1.25 1.25 1.25"
+          animation-mixer="clip: *"
+          rotate-mouth="controllerId: #controller; degrees: 45; initialPos: closed"
+        >
+        </a-entity>
+      </a-entity>
+
+      <a-entity gltf-model="#instructions" position="1.351460554946525 1.7230249122466406 -1.7227330095389946" scale="0.25 0.25 0.25" rotation="0 -45 0">
+      </a-entity>
+      <a-entity gltf-model="#credits" position="1.1593680426216446 0.5781191319220478 -1.924193391785093" scale="0.2 0.2 0.2" rotation="0 -45 0">
+      </a-entity>
+
+    </a-scene>
+
+  </body>
+</html>

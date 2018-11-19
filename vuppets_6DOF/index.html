@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en_US" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8">
+    <title>Vuppets - Oculus Rift, HTC Vive, Windows Mixed Reality headsets</title>
+    <meta name="description" content="Puppets in Virtual Reality! Compatible with Oculus Go, Gear VR and Daydream.">
+    <meta property="og:title" content="Vuppets">
+    <meta property="og:description" content="Puppets in Virtual Reality! Compatible with Oculus Go, Gear VR and Daydream.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.jorgefuentes.net/projects/vuppets/">
+    <meta property="og:image" content="https://www.jorgefuentes.net/projects/vuppets/vuppets_screenshot.jpg">
+
+    <script src="components/aframe-v0.8.2.min.js"></script>
+    <script src="components/correct-gamma.js"></script>
+    <script src="components/rotate-mouth.js"></script>
+    <script src="components/aframe-extras.min.js"></script>
+    <script src="components/howler.min.js"></script>
+
+    <script>
+      var bgAudio = new Howl({
+        src: ['models/bgsound.mp3'],
+        autoplay: true,
+        loop: true,
+        volume: 1
+      });
+      bgAudio.play();
+    </script>
+
+
+  </head>
+  <body>
+    <a-scene background="color: #CCC" correct-gamma>
+      <a-assets timeout="30000">
+        <a-asset-item id="egghead" src="models/eggface.glb"></a-asset-item>
+        <a-asset-item id="stickman" src="models/stickman.glb"></a-asset-item>
+        <a-asset-item id="street" src="models/street.glb"></a-asset-item>
+        <a-asset-item id="credits" src="models/credits.gltf"></a-asset-item>
+        <a-asset-item id="instructions" src="models/instructions.gltf"></a-asset-item>
+        <img id="sky" src="models/skymap.jpg">
+      </a-assets>
+
+      <!-- LIGHTS -->
+
+      <a-entity
+        position="0.5 4 10"
+        light="type: directional; color: #fee6c0; intensity: 0.8;"
+      >
+      </a-entity>
+
+      <a-entity
+        light="type: ambient; color: #fee6c0; intensity: 0.5;"
+      >
+      </a-entity>
+
+      <!-- ENVIRO -->
+
+      <a-sky src="#sky"></a-sky>
+  
+      <a-entity
+        gltf-model="#street"
+        position="0 0 -0.75"
+        rotation="0 -45 0"
+        animation-mixer="clip: *"
+      >
+        <a-entity gltf-model="#instructions" position="0.43797731706161874 1.7230249122466406 -1.4929104738135723" scale="0.25 0.25 0.25" rotation="1.1370833693053728 1.9169819329342441 1.2155736756065587">
+        </a-entity>
+        <a-entity gltf-model="#credits" position="0.19013196460465553 0.5781191319220478 -1.4930217774095675" scale="0.2 0.2 0.2" rotation="0.8956113698890203 2.7571053299929122 -0.813225675867045">
+        </a-entity>
+      </a-entity>
+
+      <!-- CONTROLLERS -->
+
+      <a-entity
+        id="rightHand"
+        oculus-touch-controls="hand: right; model: false"
+        vive-controls="hand: right; model: false"
+        windows-motion-controls="hand: right; model: false"
+        daydream-controls="hand: right; model: false"
+        gearvr-controls="hand: right; model: false"
+        >
+        <a-entity
+          gltf-model="#stickman"
+          position="0 0 0"
+          rotation="-45 0 0"
+          scale=".5 .5 .5"
+          animation-mixer="clip: *"
+          rotate-mouth="controllerId: #rightHand; degrees: 45; initialPos: closed"
+        >
+        </a-entity>
+      </a-entity>
+      <a-entity
+      id="leftHand"
+      oculus-touch-controls="hand: left; model: false"
+      vive-controls="hand: left; model: false"
+      windows-motion-controls="hand: left; model: false"
+      daydream-controls="hand: left; model: false"
+      gearvr-controls="hand: left; model: false"
+      >
+        <a-entity
+        gltf-model="#egghead"
+        position="0 0 0"
+        rotation="-45 0 0"
+        scale=".5 .5 .5"
+        animation-mixer="clip: *"
+        rotate-mouth="controllerId: #leftHand; degrees: 45"
+        >
+        </a-entity>
+      </a-entity>
+
+    </a-scene>
+
+  </body>
+</html>
